@@ -10,7 +10,8 @@
     "start": "concurrently \"json-server --watch datasets/db.json --port 3001\" \"vite --port 3000\"",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "classnames": "^2.3.2",
