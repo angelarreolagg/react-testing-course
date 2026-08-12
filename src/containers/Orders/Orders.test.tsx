@@ -89,4 +89,16 @@ describe("<Orders />", () => {
 
     expect(totalOrdersValue).toBe(totalOrders.toString());
   });
+
+  it("should render the Average Order Value", async () => {
+    mockGetOrders.mockResolvedValue(mockOrders);
+    handleRenderOrders("superadmin");
+
+    const { averageOrderValue } = getSummaryOrders(mockOrders);
+    const averageOrderValueLabel = await screen.findByTestId(
+      "average-order-value",
+    );
+    const averageOrderValueValue = averageOrderValueLabel.textContent;
+    expect(averageOrderValueValue).toBe(`$${averageOrderValue.toFixed(2)}`);
+  });
 });

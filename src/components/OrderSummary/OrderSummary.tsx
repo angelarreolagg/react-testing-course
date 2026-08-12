@@ -27,7 +27,10 @@ export const OrderSummary: React.FC<{ orders: Order[] }> = ({ orders }) => {
         </div>
         <div className={styles.OrdersSummary__item}>
           <p className={styles.OrdersSummary__label}>Average Order Value</p>
-          <p className={styles.OrdersSummary__value}>
+          <p
+            className={styles.OrdersSummary__value}
+            data-testid="average-order-value"
+          >
             ${summary.averageOrderValue.toFixed(2)}
           </p>
         </div>
