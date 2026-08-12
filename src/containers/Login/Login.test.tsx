@@ -38,8 +38,8 @@ describe("<Login />", () => {
   };
 
   it("should render the error message", async () => {
-    mockGetAuth.mockRejectedValue(new Error("Invalid username or password"));
     handleLogin();
+    mockGetAuth.mockRejectedValue(new Error("Invalid username or password"));
     const usernameInput = screen.getByPlaceholderText("Username");
     const passwordInput = screen.getByPlaceholderText("Password");
     const buttonLogin = screen.getByRole("button", { name: "Login" });
@@ -55,8 +55,8 @@ describe("<Login />", () => {
   });
 
   it("should redirect to the orders page on successful login", async () => {
-    mockGetAuth.mockResolvedValue({ success: true });
     handleLogin();
+    mockGetAuth.mockResolvedValue({ success: true });
     const usernameInput = screen.getByPlaceholderText("Username");
     const passwordInput = screen.getByPlaceholderText("Password");
     const buttonLogin = screen.getByRole("button", { name: "Login" });
@@ -71,5 +71,25 @@ describe("<Login />", () => {
       expect(mockGetAuth).toHaveBeenCalledWith("validuser", "validpassword");
       expect(mockNavigate).toHaveBeenCalledWith("/orders");
     });
+  });
+
+  //   New test to check it the show toggle button works correctly, it should change the input type from password to text and vice versa
+
+  it("should toggle the password visibility when the show toggle button is clicked", async () => {
+    handleLogin();
+    const passwordInput = screen.getByPlaceholderText("Password");
+    const showToggle = screen.getByRole("button", { name: /show/i });
+
+    await act(() => {
+      fireEvent.click(showToggle);
+    });
+
+    expect(passwordInput).toHaveAttribute("type", "text");
+
+    await act(() => {
+      fireEvent.click(showToggle);
+    });
+
+    expect(passwordInput).toHaveAttribute("type", "password");
   });
 });
